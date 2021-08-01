@@ -1,0 +1,30 @@
+public class QueryResponse {
+   private int status;
+   private Map<String, List<String>> headers = new hashMap<>();
+   private string body;
+   private boolean isJson;
+ 
+   public  QueryResponse(String body) {this(HttpStatus.OK, body);}
+   public  QueryResponse(int status, String body) {
+     this.status = status;
+     this.body = body;
+   }
+   public int getStatus() {return status;}
+ 
+   public String getBody() {return body;}
+ 
+   public Map<String, List<String>> getHeaders() { return headers;}
+ 
+   public void addHeader(String name, String value) {
+     Objects.requireNotNull(name);
+     Objects.requireNotNull(value);
+     List<String> headerList = headers.get(name);
+     if(headerList == null) {
+       headerList = new ArrayList<>();
+       headers.put(name,headerList);
+     }
+     if("Content-Type".equalsIgnoreCase(name)) && 
+   value.startsWith("application/json")) { isJson = true;}
+  headerList.add(value); 
+  }
+}
